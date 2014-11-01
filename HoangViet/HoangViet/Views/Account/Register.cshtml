@@ -1,0 +1,140 @@
+﻿@model HoangViet.ViewModels.Accounts.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+@section head{
+    <link href="~/Areas/Admin/css/datepicker/datepicker.css" rel="stylesheet" />
+}
+<ul class="breadcrumb">
+    <li><a href="/">Trang chủ</a> <span class="divider">/</span></li>
+    <li class="active">Đăng ký tài khoản</li>
+</ul>
+<h3> Đăng ký tài khoản</h3>
+<div class="well">
+ 
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true,"", new { @class = "text-danger" })
+    <h4>Thông tin cá nhân của bạn</h4>
+    <div class="control-group">
+        @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+        <div class="controls">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="control-group">
+        @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+        <div class="controls">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="control-group">
+        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
+        <div class="controls">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="control-group">
+        @Html.LabelFor(m => m.Name, new { @class = "control-label" })
+        <div class="controls">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="control-group">
+        @Html.LabelFor(m => m.Sex, new { @class = "control-label" })
+        <div class="controls">
+            @Html.EnumDropDownListFor(m => m.Sex, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="control-group">
+        @Html.LabelFor(m => m.DateOfBirth, new { @class = "control-label" })
+
+        <div class="controls">
+            @Html.TextBoxFor(model => model.DateOfBirth, new { @class = "text-box single-line form-control", data_date_format = "dd/mm/yyyy" })
+            @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <h4>Địa chỉ của bạn</h4>
+    
+    <div class="control-group">
+        @Html.LabelFor(m => m.CityId, new { @class = "control-label" })
+        <div class="controls">
+            @Html.DropDownList("CityId", null, "[None]", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+     <div class="control-group">
+        @Html.LabelFor(m => m.DistrictId, new { @class = "control-label" })
+        <div class="controls">
+
+            @Html.DropDownList("DistrictId", null, "[None]", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="control-group">
+        @Html.LabelFor(m => m.Address1, new { @class = "control-label" })
+        <div class="controls">
+            @Html.TextBoxFor(m => m.Address1, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Address1, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="control-group">
+        @Html.LabelFor(m => m.PhoneNumber, new { @class = "control-label" })
+        <div class="controls">
+            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="control-group">
+        @Html.LabelFor(m => m.FaxNumber, new { @class = "control-label" })
+        <div class="controls">
+            @Html.TextBoxFor(m => m.FaxNumber, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.FaxNumber, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="control-group">
+        @Html.LabelFor(m => m.CompanyName, new { @class = "control-label" })
+        <div class="controls">
+            @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="control-group">
+        @Html.LabelFor(m => m.TaxCode, new { @class = "control-label" })
+        <div class="controls">
+            @Html.TextBoxFor(m => m.TaxCode, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TaxCode, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="control-group">
+        @Html.LabelFor(m => m.Website, new { @class = "control-label" })
+        <div class="controls">
+            @Html.TextBoxFor(m => m.Website, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Website, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <p class="text-danger"><sup>*</sup>Những thông tin này yêu cầu phải nhập!</p>
+    <div class="control-group">
+        <div class="controls">
+            <input type="submit" class="btn btn-large btn-success" value="Đăng ký" />
+        </div>
+    </div>
+}
+</div>
+
+
+
+@section Scripts {
+    <script src="~/Areas/Admin/js/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script type="text/javascript">
+        $(function () { // will trigger when the document is ready
+            $('#DateOfBirth').datepicker();
+        });
+    </script>
+}

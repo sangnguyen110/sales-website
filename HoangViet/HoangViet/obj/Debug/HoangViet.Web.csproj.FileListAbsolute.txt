@@ -1,0 +1,4 @@
+C:\Users\sang\documents\visual studio 2013\Projects\HoangViet\HoangViet\obj\Debug\HoangViet.Web.Migrations.initial.resources
+C:\Users\sang\documents\visual studio 2013\Projects\HoangViet\HoangViet\obj\Debug\HoangViet.Web.csproj.GenerateResource.Cache
+C:\Users\sang\documents\visual studio 2013\Projects\HoangViet\HoangViet\obj\Debug\HoangViet.dll
+C:\Users\sang\documents\visual studio 2013\Projects\HoangViet\HoangViet\obj\Debug\HoangViet.pdb

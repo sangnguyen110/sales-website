@@ -1,0 +1,70 @@
+﻿@model HoangViet.ViewModels.Accounts.LoginViewModel
+
+@{
+    ViewBag.Title = "Log in";
+}
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <form class="form-horizontal loginFrm" role="form" data-async data-target="#login" action="/account/loginajax" method="POST">
+            @Html.AntiForgeryToken()
+         
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h2>Đăng nhập</h2>
+            </div>
+            <div class="modal-body">
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                <div class="control-group">
+                    @Html.LabelFor(m => m.Email)
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    @*@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })*@
+
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(m => m.Password)
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                    @*@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })*@
+                </div>
+                <div class="control-group">
+                    <div class="checkbox">
+                        @Html.CheckBoxFor(m => m.RememberMe)
+                        @Html.LabelFor(m => m.RememberMe)
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+                <button type="submit" class="btn btn-success">Đăng nhập</button>
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
+                @Html.ActionLink("Quên mật khẩu", "forgotpassword", new { controller = "account", area = "" }, new {@class="btn btn-info pull-left",id="forgot-password" })
+      
+            </div>
+        </form>
+        @*<form id="forgotpasswordform" class="hide" data-async data-target="#login" action="/account/forgotpassword" method="get"></form>*@
+    </div>
+</div>
+<script type="text/javascript">
+    if (typeof jQuery != 'undefined') {
+        jQuery(function ($) {
+            $('form[data-async]').on('submit', function (event) {
+                var $form = $(this);
+                var $target = $($form.attr('data-target'));
+                $.validator.unobtrusive.parse($form);
+                if ($form.valid())
+                    $.ajax({
+                        type: $form.attr('method'),
+                        url: $form.attr('action'),
+                        data: $form.serialize(),
+
+                        success: function (data, status) {
+                            $target.html(data);
+                           
+                        }
+                    });
+
+                event.preventDefault();
+            });
+        });
+    }
+</script>

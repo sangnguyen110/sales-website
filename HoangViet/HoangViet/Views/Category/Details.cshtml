@@ -1,0 +1,117 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model HoangViet.ViewModels.CategoryViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="span9">
+    <ul class="breadcrumb">
+        <li><a href="/">Trang chủ</a> <span class="divider">/</span></li>
+        <li class="active">@Model.CategoryName</li>
+    </ul>
+    <h3> @Model.CategoryName <small class="pull-right"> Có @Model.ProductCount sản phẩm   </small></h3>
+    <hr class="soft" />
+
+    <form class="form-horizontal span6">
+        <div class="control-group">
+            <label class="control-label alignL">Sort By </label>
+            <select>
+                <option>Priduct name A - Z</option>
+                <option>Priduct name Z - A</option>
+                <option>Priduct Stoke</option>
+                <option>Price Lowest first</option>
+            </select>
+        </div>
+    </form>
+
+    <div id="myTab" class="pull-right">
+        <a href="#listView" data-toggle="tab"><span class="btn btn-large"><i class="icon-list"></i></span></a>
+        <a href="#blockView" data-toggle="tab"><span class="btn btn-large btn-primary"><i class="icon-th-large"></i></span></a>
+    </div>
+    <br class="clr" />
+    <div class="tab-content">
+        <div class="tab-pane" id="listView">
+            @foreach (var product in Model.Products)
+            {
+                <div class="row">
+                    <div class="span2">
+                        <img src="@product.ImageLink" alt="" />
+                    </div>
+                    <div class="span4">
+                        <h3>@product.ProductName</h3>
+                        <hr class="soft" />
+                        <p>
+                            @product.ShortDescription
+                        </p>
+                        <a class="btn btn-small pull-right" href="@product.Url">View Details</a>
+                        <br class="clr" />
+                    </div>
+                    <div class="span3 alignR">
+                        <form class="form-horizontal qtyFrm">
+                            <h3> @product.VietnamesePrice </h3>
+                            <br />
+
+                            <a class="addtocart" href="@Url.Action("addToCart",new {controller="shoppingcart",id = product.Id})" class="btn btn-large btn-primary">
+                                Thêm vào <i class=" icon-shopping-cart"></i>
+                            </a>
+                            <a href="@product.Url" class="btn btn-large"><i class="icon-zoom-in"></i></a>
+
+                        </form>
+                    </div>
+                </div>
+                <hr class="soft" />
+            }
+
+
+        </div>
+
+        <div class="tab-pane  active" id="blockView">
+            <ul class="thumbnails">
+                @foreach (var product in Model.Products)
+                {
+                    <li class="span3">
+                        <div class="thumbnail">
+                            <a href="@product.Url"><img src="@product.ImageLink" alt="" /></a>
+                            <div class="caption">
+                                <h5>@product.ProductName</h5>
+                                <p>
+                                    @product.ShortDescription
+                                </p>
+                                <h4 style="text-align:center">
+                                    <a class="btn" href="@product.Url"> <i class="icon-zoom-in"></i></a>
+                                    <a class="btn addtocart" href="@Url.Action("addToCart",new{controller="shoppingcart",id = product.Id})">Thêm vào <i class="icon-shopping-cart"></i></a>
+                               
+                                </h4>
+                                <h4 style="text-align:center">
+                                    <a class="btn btn-primary" href="#">@product.VietnamesePrice </a>
+
+                                </h4>
+                            </div>
+                        </div>
+                    </li>
+                }
+
+
+            </ul>
+            <hr class="soft" />
+        </div>
+    </div>
+
+  
+    <div class="pagination" style="text-align:center;">
+        @Html.PagedListPager(Model.Products, page => Url.Action("details", new { page }))
+    </div>
+    <br class="clr" />
+</div>
+@section scripts{
+    <script>
+        $(function () {
+            $('.pagination-container ul').removeClass('pagination');
+            
+            $('.pagination').html($('.pagination-container').html());
+        });
+    </script>
+   
+    }

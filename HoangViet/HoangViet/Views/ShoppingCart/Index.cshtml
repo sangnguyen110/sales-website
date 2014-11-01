@@ -1,0 +1,14 @@
+﻿@model HoangViet.ViewModels.ShoppingCartViewModel
+@{
+    ViewBag.Title = "Giỏ hàng";
+}
+<ul class="breadcrumb">
+    <li><a href="/">Home</a> <span class="divider">/</span></li>
+    <li class="active"> Giỏ hàng</li>
+</ul>
+
+<div id="shoppingcart">
+    @Html.Partial("UpdateShoppingCartPartial", Model)
+</div>
+<a href="/" class="btn btn-large"><i class="icon-arrow-left"></i> Tiếp tục mua hàng </a>
+<a href="/checkout" class="btn btn-large pull-right">Thanh toán <i class="icon-arrow-right"></i></a>

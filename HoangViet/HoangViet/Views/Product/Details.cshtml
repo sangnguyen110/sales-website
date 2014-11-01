@@ -1,0 +1,165 @@
+﻿@model HoangViet.Models.Catalog.Product
+@{
+    var hasCategory = Model.Category != null ? true : false;
+
+}
+
+
+<ul class="breadcrumb">
+    <li><a href="/">Trang chủ</a> <span class="divider">/</span></li>
+    <li>
+        @if (hasCategory)
+        {
+            <a href="@Model.Category.GetUrl()">@Model.Category.CategoryName</a>
+        }
+        else
+        {
+            @Html.ActionLink("Hàng hóa", "index", new { controller = "product", area = "" })
+        }
+        <span class="divider">/</span>
+    </li>
+    <li class="active">@Model.ProductName</li>
+</ul>
+<div class="row">
+    <div id="gallery" class="span3">
+        <a href="@Model.ImageLink" title="Fujifilm FinePix S2950 Digital Camera">
+            <img src="@Model.ImageLink" style="width:100%" alt="Fujifilm FinePix S2950 Digital Camera" />
+        </a>
+        <div id="differentview" class="moreOptopm carousel slide">
+            <div class="carousel-inner">
+                <div class="item active">
+                    <a href="~/themes/images/products/large/f1.jpg"> <img style="width:29%" src="~/themes/images/products/large/f1.jpg" alt="" /></a>
+                    <a href="~/themes/images/products/large/f2.jpg"> <img style="width:29%" src="~/themes/images/products/large/f2.jpg" alt="" /></a>
+                    <a href="~/themes/images/products/large/f3.jpg"> <img style="width:29%" src="~/themes/images/products/large/f3.jpg" alt="" /></a>
+                </div>
+                <div class="item">
+                    <a href="~/themes/images/products/large/f3.jpg"> <img style="width:29%" src="~/themes/images/products/large/f3.jpg" alt="" /></a>
+                    <a href="~/themes/images/products/large/f1.jpg"> <img style="width:29%" src="~/themes/images/products/large/f1.jpg" alt="" /></a>
+                    <a href="~/themes/images/products/large/f2.jpg"> <img style="width:29%" src="~/themes/images/products/large/f2.jpg" alt="" /></a>
+                </div>
+            </div>
+            
+            @*<a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>*@
+            
+        </div>
+
+
+    </div>
+    <div class="span6">
+        <h3>@Model.ProductName  </h3>
+        <hr class="soft" />
+        <form class="form-horizontal qtyFrm">
+            <div class="control-group">
+                <label class="control-label"><span>@Model.VietnamesePrice</span></label>
+                <div class="controls">
+                    <input type="number" class="span1" placeholder="SLg." />
+                    <button type="submit" class="btn btn-large btn-primary pull-right"> Thêm vào <i class=" icon-shopping-cart"></i></button>
+                </div>
+            </div>
+        </form>
+
+
+        <hr class="soft clr" />
+        <p>
+            @Model.ShortDescription
+
+        </p>
+
+        <hr class="soft" />
+    </div>
+
+    <div class="span9">
+        <ul id="productDetail" class="nav nav-tabs">
+            <li class="active"><a href="#home" data-toggle="tab">Chi tiết sản phẩm</a></li>
+            @if (hasCategory)
+            {
+                <li><a href="#profile" data-toggle="tab">Sản phẩm cùng danh mục</a></li>
+            }
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active in" id="home">
+                @Html.Raw(Model.FullDescription)
+            </div>
+            @if (hasCategory)
+            {
+                <div class="tab-pane fade" id="profile">
+                    <div id="myTab" class="pull-right">
+                        <a href="#listView" data-toggle="tab"><span class="btn btn-large"><i class="icon-list"></i></span></a>
+                        <a href="#blockView" data-toggle="tab"><span class="btn btn-large btn-primary"><i class="icon-th-large"></i></span></a>
+                    </div>
+                    <br class="clr" />
+                    <hr class="soft" />
+                    <div class="tab-content">
+                        <div class="tab-pane" id="listView">
+                            @foreach (var product in Model.Category.Products)
+                        {
+                        <div class="row">
+                            <div class="span2">
+                                <img src="@product.ImageLink" alt="" />
+                            </div>
+                            <div class="span4">
+                                <h3>@product.ProductName</h3>
+                                <hr class="soft" />
+                                <p>
+                                    @product.ShortDescription
+                                </p>
+                                <a class="btn btn-small pull-right" href="@product.Url">View Details</a>
+                                <br class="clr" />
+                            </div>
+                            <div class="span3 alignR">
+                                <form class="form-horizontal qtyFrm">
+                                    <h3> @product.VietnamesePrice </h3>
+                                    <br />
+
+                                    <a href="@Url.Action("addToCart",new{controller="shoppingcart",id = product.Id})" class="btn btn-large btn-primary">
+                                        Thêm vào <i class=" icon-shopping-cart"></i>
+                                    </a>
+                                    <a href="@product.Url" class="btn btn-large"><i class="icon-zoom-in"></i></a>
+
+                                </form>
+                            </div>
+                        </div>
+                        <hr class="soft" />
+                        }
+
+
+                        </div>
+                        <div class="tab-pane active" id="blockView">
+
+                            <ul class="thumbnails">
+                                @foreach (var product in Model.Category.Products)
+                            {
+                            <li class="span3">
+                                <div class="thumbnail">
+                                    <a href="@product.Url"><img src="@product.ImageLink" alt="" /></a>
+                                    <div class="caption">
+                                        <h5>@product.ProductName</h5>
+                                        <p>
+                                            @product.ShortDescription
+                                        </p>
+                                        <h4 style="text-align:center">
+                                            <a class="btn" href="@product.Url"> <i class="icon-zoom-in"></i></a>
+                                            <a class="btn" href="@Url.Action("addToCart",new{controller="shoppingcart",id = product.Id})">Thêm vào <i class="icon-shopping-cart"></i></a>
+
+                                        </h4>
+                                        <h4 style="text-align:center">
+                                            <a class="btn btn-primary" href="#">@product.VietnamesePrice </a>
+
+                                        </h4>
+                                    </div>
+                                </div>
+                            </li>
+                            }
+
+                            </ul>
+                            <hr class="soft" />
+                        </div>
+                    </div>
+                    <br class="clr">
+                </div>
+            }
+        </div>
+    </div>
+
+</div>

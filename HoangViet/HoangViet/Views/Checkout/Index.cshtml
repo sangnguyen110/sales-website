@@ -1,0 +1,167 @@
+﻿@model HoangViet.ViewModels.CheckoutViewModel
+@{
+    ViewBag.Title = "thanh toán";
+}
+<ul class="breadcrumb">
+    <li><a href="/">Trang chủ</a> <span class="divider">/</span></li>
+    <li class="active">Thanh toán</li>
+</ul>
+<h3> Thanh toán</h3>
+<hr class="soft" />
+
+<div class="row">
+@using (Html.BeginForm("Index", "checkout"))
+{ 
+      <div class="span9">
+        <div class="well">
+            <div class="box box-solid">
+                <div class="box-header">
+                    <h3 class="box-title">Thông tin khách hàng</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <div class="box-group" id="accordion">
+                        <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
+                        <div class="panel box box-primary">
+                            <div class="box-header">
+                                <h4 class="box-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                        Địa chỉ hóa đơn
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.BillingAddress.FullName)
+                                        @Html.TextBoxFor(model => model.BillingAddress.FullName, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.BillingAddress.FullName, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.BillingAddress.Email)
+                                        @Html.TextBoxFor(model => model.BillingAddress.Email, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.BillingAddress.Email, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.BillingAddress.Company)
+                                        @Html.TextBoxFor(model => model.BillingAddress.Company, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.BillingAddress.Company, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.BillingAddress.CityId)
+                                        @Html.DropDownList("BillingAddress.CityId",null , "[None]", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.BillingAddress.CityId, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.BillingAddress.DistrictId)
+                                        @Html.DropDownList("BillingAddress.DistrictId", null, "[None]", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.BillingAddress.DistrictId, "", new { @class = "text-danger" })
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.BillingAddress.Address1)
+                                        @Html.TextBoxFor(model => model.BillingAddress.Address1, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.BillingAddress.Address1, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.BillingAddress.PhoneNumber)
+                                        @Html.TextBoxFor(model => model.BillingAddress.PhoneNumber, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.BillingAddress.PhoneNumber, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.BillingAddress.FaxNumber)
+                                        @Html.TextBoxFor(model => model.BillingAddress.FaxNumber, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.BillingAddress.FaxNumber, "", new { @class = "text-danger" })
+                                    </div>
+                                 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel box box-primary">
+                            <div class="box-header">
+                                <h4 class="box-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                       Địa chỉ giao hàng
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse">
+                                <div class="box-body">
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.ShippingAddress.FullName)
+                                            @Html.TextBoxFor(model => model.ShippingAddress.FullName, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.ShippingAddress.FullName, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.ShippingAddress.Email)
+                                            @Html.TextBoxFor(model => model.ShippingAddress.Email, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.ShippingAddress.Email, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.ShippingAddress.Company)
+                                            @Html.TextBoxFor(model => model.ShippingAddress.Company, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.ShippingAddress.Company, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.ShippingAddress.CityId)
+                                            @Html.DropDownList("BillingAddress.CityId", null, "[None]", new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.ShippingAddress.CityId, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.BillingAddress.DistrictId)
+                                            @Html.DropDownList("BillingAddress.DistrictId", null, "[None]", new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.ShippingAddress.DistrictId, "", new { @class = "text-danger" })
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.ShippingAddress.Address1)
+                                            @Html.TextBoxFor(model => model.ShippingAddress.Address1, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.ShippingAddress.Address1, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.ShippingAddress.PhoneNumber)
+                                            @Html.TextBoxFor(model => model.ShippingAddress.PhoneNumber, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.ShippingAddress.PhoneNumber, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.ShippingAddress.FaxNumber)
+                                            @Html.TextBoxFor(model => model.ShippingAddress.FaxNumber, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.ShippingAddress.FaxNumber, "", new { @class = "text-danger" })
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      
+                    </div>
+                </div><!-- /.box-body -->
+                <div class="box-footer">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </div>
+          
+        </div>
+    </div>
+
+}
+
+</div>
+
+
+@section Scripts {
+<script src="~/Areas/Admin/js/plugins/chained/jquery.chained.min.js"></script>
+     <script type="text/javascript">
+        var districts = @Html.Raw(Json.Encode(ViewBag.Districts)) ;
+        $(function () {
+            $.each(districts,function(index, district){
+                $('#BillingAddress_DistrictId option[value="' + district.DistrictId + '"]').attr( "class",district.CityId );
+                $('#ShippingAddress_DistrictId option[value="' + district.DistrictId + '"]').attr( "class",district.CityId );
+            });
+            $("#BillingAddress_DistrictId").chained("#BillingAddress_CityId");
+            $("#ShippingAddress_DistrictId").chained("#ShippingAddress_CityId");
+        });
+    </script>
+}

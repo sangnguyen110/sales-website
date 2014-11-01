@@ -1,0 +1,78 @@
+﻿@model HoangViet.ViewModels.ShoppingCartViewModel
+<form class="" role="form" data-async data-target="#shoppingcart" action="/shoppingcart/UpdateCart" method="POST">
+    <h3>
+        GIỎ HÀNG [ <small>@Model.CartItems.Count Sản phẩm </small>]
+        <button class="btn btn-large pull-right" type="submit"><i class="icon-arrow-left"></i> Cập nhật giỏ hàng</button>
+        @*<a href="/" class="btn btn-large pull-right">
+                <i class="icon-arrow-left"></i> <input type="submit" value="Cập nhật giỏ hàng">
+            </a>*@
+    </h3>
+    <hr class="soft" />
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Xóa</th>
+                <th>Sản phẩm</th>
+                <th>Mô tả</th>
+                <th>Số lượng</th>
+                <th>Giá</th>
+                <th>Tổng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.CartItems.Count; i++)
+            {
+                <tr>
+                    @Html.HiddenFor(model => model.CartItems[i].Id)
+                    <td>
+                        @Html.CheckBoxFor(model => model.CartItems[i].Deleted)
+                    </td>
+                    <td> <img width="60" src="@Model.CartItems[i].Product.ImageLink" alt="" /></td>
+                    <td>@Model.CartItems[i].Product.ShortDescription</td>
+                    <td>
+                        @Html.TextBoxFor(model => model.CartItems[i].Quantity)
+                    </td>
+                    <td>@Model.CartItems[i].Product.VietnamesePrice</td>
+                    <td>@Model.CartItems[i].Total</td>
+                </tr>
+            }
+            <tr>
+                <td colspan="6" style="text-align:right">Tổng giỏ hàng:	</td>
+                <td> @Model.CartTotal</td>
+            </tr>
+
+            <tr>
+                <td colspan="6" style="text-align:right">Tổng tiền thuế:	</td>
+                <td> @Model.CartTax</td>
+            </tr>
+            <tr>
+                <td colspan="6" style="text-align:right"><strong>TỔNG CỘNG (@Model.CartTotal + @Model.CartTax) =</strong></td>
+                <td class="label label-important" style="display:block"> <strong> @Model.CartTotalIncTax </strong></td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+
+<script type="text/javascript">
+    if (typeof jQuery != 'undefined') {
+        jQuery(function ($) {
+            $('form[data-async]').on('submit', function (event) {
+                var $form = $(this);
+                var $target = $($form.attr('data-target'));
+                if ($form.valid())
+                    $.ajax({
+                        type: $form.attr('method'),
+                        url: $form.attr('action'),
+                        data: $form.serialize(),
+
+                        success: function (data, status) {
+                            $target.html(data);
+
+                        }
+                    });
+
+                event.preventDefault();
+            });
+        });
+    }
+</script>
