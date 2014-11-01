@@ -1,0 +1,80 @@
+﻿@model HoangViet.Models.Catalog.Product
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="box-header">
+    <h3 class="box-title">
+        Tạo mới hàng hóa
+    </h3>
+</div>
+
+
+@using (Html.BeginForm("create", "product", new { area = "catalog" }, FormMethod.Post, new { role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.Partial("_CreateOrEdit", Model)
+}
+
+@section head {
+    @Styles.Render("~/Content/lightboxcss")
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/lightboxjs")
+    <!-- CK Editor -->
+    <script src="~/areas/admin/js/plugins/ckeditor/ckeditor.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+
+        function processFile(data) {
+            var imageUrls = "";
+            var imageHtmls = "";
+            $.each(data.files, function (index, value) {
+                if (imageUrls === "")
+                    imageUrls += value;
+                else
+                    imageUrls += "|" + value;
+                imageHtmls += '<div class="col-md-3"><div class="thumbnail"><a class="close" href="#">×</a><div data-toggle="lightbox" data-gallery="multiimages"><img src="' + value + '" style="width:232px;height:163px" /></div></div></div>'
+            });
+            $('#picture').html(imageHtmls);
+            $('#ImageLink').val(imageUrls);
+        }
+        $(function () {
+            // Replace the <textarea id="editor1"> with a CKEditor
+            // instance, using default configuration.
+            CKEDITOR.replace('FullDescription', {
+                customConfig: '/Areas/Admin/js/plugins/ckeditor/config.js'
+            });
+            //$('#imageUpload').popupWindow({
+            //    windowURL: '/admin/elfinder/upload',
+            //    windowName: 'Filebrowser',
+            //    height: 490,
+            //    width: 950,
+            //    centerScreen: 1
+            //});
+            $('#imageUpload').click(function () {
+                window.open("/admin/elfinder/upload", "_blank", "scrollbars=1,resizable=1,height=490,width=950");
+            });
+            //$('.close').click(function () {
+            //    $(this).parents('div.col-md-3').remove();
+            //});
+            $(document).on('click', '.close', function () {
+                var images = $('#ImageLink').val().split('|');
+                var removeImage = $(this).parent("div").find('img').attr('src');
+                images.splice($.inArray(removeImage, images), 1);
+                $(this).parents('div.col-md-3').remove();
+                $('#ImageLink').val(images.join('|'));
+            });
+            $(document).delegate('*[data-toggle="lightbox"]', 'click', function (event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+        });
+
+
+
+    </script>
+}

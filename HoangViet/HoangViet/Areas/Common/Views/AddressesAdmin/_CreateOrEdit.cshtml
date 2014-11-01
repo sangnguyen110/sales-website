@@ -1,0 +1,74 @@
+﻿@model HoangViet.Models.Common.Address
+<div class="box-body">
+    <div class="form-group">
+        @Html.LabelFor(model => model.FullName)
+        @Html.TextBoxFor(model => model.FullName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email)
+        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Company)
+        @Html.TextBoxFor(model => model.Company, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Company, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.CityId)
+        @*<select id="CityId" name="CityId">
+            <option value="">--</option>
+            <option value="bmw">BMW</option>
+            <option value="audi">Audi</option>
+        </select>*@
+        @Html.DropDownList("CityId", null, "[None]", new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.DistrictId)
+        @Html.DropDownList("DistrictId", null, "[None]", new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+       
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Address1)
+        @Html.TextBoxFor(model => model.Address1, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Address1, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.PhoneNumber)
+        @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.FaxNumber)
+        @Html.TextBoxFor(model => model.FaxNumber, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.FaxNumber, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <div class="checkbox">
+            <label class="">
+
+                @Html.CheckBoxFor(model => model.DefaultBillingAddress, new { style = "position: absolute; opacity: 0;" })
+                @Html.DisplayNameFor(model => model.DefaultBillingAddress)
+            </label>
+        </div>
+        @Html.ValidationMessageFor(model => model.DefaultBillingAddress, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <div class="checkbox">
+            <label class="">
+
+                @Html.CheckBoxFor(model => model.DefaultShippingAddress, new { style = "position: absolute; opacity: 0;" })
+                @Html.DisplayNameFor(model => model.DefaultShippingAddress)
+            </label>
+        </div>
+        @Html.ValidationMessageFor(model => model.DefaultShippingAddress, "", new { @class = "text-danger" })
+    </div>
+</div><!-- /.box-body -->
+
+<div class="box-footer">
+    <input type="submit" value="Save" class="btn btn-primary" /> 
+</div>

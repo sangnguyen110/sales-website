@@ -1,0 +1,38 @@
+﻿@model HoangViet.Models.Common.Address
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="box-header">
+    <h3 class="box-title">
+        Cập nhật địa chỉ @if (ViewBag.OrderId != null)
+        {
+            <small>(@Html.ActionLink("Quay lại đơn đặt hàng", "edit", new { area = "orders", controller = "order", id = ViewBag.OrderId }, new { style = "color:#72afd2" }))</small>
+        }
+    </h3>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.CustomerId)
+    @Html.Partial("_CreateOrEdit", Model)
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        var districts = @Html.Raw(Json.Encode(ViewBag.Districts)) ;
+        $(function () {
+            $.each(districts,function(index, district){
+                $('#DistrictId option[value="' + district.DistrictId + '"]').attr( "class",district.CityId );              
+            });  
+            $("#DistrictId").chained("#CityId");
+        });
+    </script>
+}

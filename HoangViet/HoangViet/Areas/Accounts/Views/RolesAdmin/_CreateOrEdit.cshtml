@@ -1,0 +1,14 @@
+﻿@model HoangViet.ViewModels.Accounts.RoleViewModel
+<div class="box-body">
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name)
+        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+    </div>
+   
+</div><!-- /.box-body -->
+
+<div class="box-footer">
+    <input type="submit" value="Lưu" class="btn btn-primary" /> |
+    @Html.ActionLink("Quay lại danh sách", "Index", new { controller = "rolesadmin", area = "accounts" }, new { @class = "btn btn-primary" })
+</div>

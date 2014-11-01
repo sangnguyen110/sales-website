@@ -1,0 +1,66 @@
+﻿@model HoangViet.Models.Shipping.Shipment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Shipment</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.CustomerId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Order.CustomerId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Shipper.ShippingMethodName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Shipper.ShippingMethodName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TrackingNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TrackingNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalWeight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalWeight)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShippedDateUtc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShippedDateUtc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeliveryDateUtc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeliveryDateUtc)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

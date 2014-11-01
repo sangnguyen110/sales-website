@@ -1,0 +1,114 @@
+﻿@model HoangViet.Areas.Shipping.ViewModels.ShipmentAdminViewModel
+@{var y = 1;}
+<div class="box-body">
+    <div class="form-group">
+        @Html.LabelFor(model => model.ShipperId)
+        @Html.DropDownList("ShipperId", null, "[None]", new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.ShipperId)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.TrackingNumber)
+        @Html.TextBoxFor(model => model.TrackingNumber, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.TrackingNumber, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.TotalWeight)
+        @Html.TextBoxFor(model => model.TotalWeight, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.TotalWeight, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ShippingExclTax)
+        @Html.TextBoxFor(model => model.ShippingExclTax, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.ShippingExclTax, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ShippingInclTax)
+        @Html.TextBoxFor(model => model.ShippingInclTax, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.ShippingInclTax, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ShippedDate)
+        <div class="input-group col-md-2">
+            <div class="input-group-addon">
+                <i class="fa fa-calendar"></i>
+            </div>
+            @Html.TextBoxFor(model => model.ShippedDate, new { @class = "text-box single-line form-control", data_date_format = "dd/mm/yyyy" })
+        </div>
+        @Html.ValidationMessageFor(model => model.ShippedDate, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.DeliveryDate)
+        <div class="input-group col-md-2">
+            <div class="input-group-addon">
+                <i class="fa fa-calendar"></i>
+            </div>
+            @Html.TextBoxFor(model => model.DeliveryDate, new { @class = "text-box single-line form-control", data_date_format = "dd/mm/yyyy" })
+        </div>
+        @Html.ValidationMessageFor(model => model.DeliveryDate, "", new { @class = "text-danger" })
+    </div>
+    <h5 class="text-center text-aqua">Chi tiết phiếu giao hàng!</h5>
+    <div id="hoangviet-errors" class="alert alert-danger alert-dismissable hidden">
+        <i class="fa fa-ban"></i>
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <b>Đã có lỗi trong quá trình xử lý!</b> @Html.ValidationSummary(true)
+    </div>
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th>Số thứ tự</th>
+                <th>Tên sản phẩm
+                </th>
+                <th>Số lượng đặt hàng
+                </th>
+                <th>Số lượng hàng đã chuyển
+                </th>
+                <th>Số lượng hàng sẽ chuyển
+                </th>
+            </tr>
+
+            @for (int i = 0; i < Model.ShipmentDetailViewModels.Count; i++)
+            {
+                var item = Model.ShipmentDetailViewModels[i];
+                if (item.DefaultShipmentDetailQuantity != 0)
+                { <tr>
+                    <td>@y</td>
+                    <td>
+                        @item.ProductName
+                    </td>
+                    <td>
+                        @item.OrderDetailQuantity
+                    </td>
+                    <td>
+                        @item.ShippedQuantity
+                    </td>
+                    <td>
+                        @*@Html.HiddenFor(model => model.ShipmentDetailViewModels[i].OrderDetailQuantity)
+                            @Html.HiddenFor(model => model.ShipmentDetailViewModels[i].ShippedQuantity)*@
+                        @*     @Html.HiddenFor(model => model.ShipmentDetailViewModels[i].DefaultShipmentDetailQuantity)
+                        @Html.HiddenFor(model => model.ShipmentDetailViewModels[i].OrderDetailId)
+                        @Html.TextBoxFor(model => model.ShipmentDetailViewModels[i].ShipmentDetailQuantity)
+                        @Html.ValidationMessageFor(model => model.ShipmentDetailViewModels[i].ShipmentDetailQuantity)*@
+                        @Html.Hidden("ShipmentDetailViewModels[" + (y-1) + "].DefaultShipmentDetailQuantity", Model.ShipmentDetailViewModels[i].DefaultShipmentDetailQuantity)
+                        @Html.Hidden("ShipmentDetailViewModels[" + (y-1) + "].OrderDetailId", Model.ShipmentDetailViewModels[i].OrderDetailId)
+                        @Html.TextBox("ShipmentDetailViewModels[" + (y-1) + "].ShipmentDetailQuantity", Model.ShipmentDetailViewModels[i].ShipmentDetailQuantity)
+                        @Html.ValidationMessage("ShipmentDetailViewModels[" + y + "].ShipmentDetailQuantity", "", new { @class = "text-danger" })
+                    </td>
+
+                </tr>
+                    y++;
+                }
+
+
+            }
+
+
+        </tbody>
+    </table>
+</div>
+<!-- /.box-body -->
+
+<div class="box-footer">
+    <input type="submit" value="Save" class="btn btn-primary" />
+    |
+    @Html.ActionLink("Quay lại danh sách", "Index", new { controller = "shipmentsadmin", area = "shipping" }, new { @class = "btn btn-primary" })
+</div>

@@ -1,0 +1,74 @@
+﻿@model HoangViet.Models.Orders.OrderDetail
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>OrderDetail</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.CustomerId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Order.CustomerId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.ProductName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.ProductName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UnitPriceInclTax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UnitPriceInclTax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UnitPriceExclTax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UnitPriceExclTax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PriceInclTax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriceInclTax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PriceExclTax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriceExclTax)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

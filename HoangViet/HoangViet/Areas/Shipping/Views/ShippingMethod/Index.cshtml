@@ -1,0 +1,96 @@
+﻿@model IEnumerable<HoangViet.Models.Shipping.ShippingMethod>
+
+@{
+    ViewBag.Title = "Index";
+    var i = 1;
+}
+
+<div class="box-header">
+    <h3 class="box-title">
+        <a class="btn btn-primary btn-flat" href="@Url.Action("create")">
+            <i class="fa fa-pencil"></i>Tạo mới phương thức giao hàng
+        </a>
+    </h3>
+
+</div>
+<div class="box-body table-responsive no-padding">
+    <table class="table table-hover">
+        <tbody>
+            <tr>
+                <th>
+                    Số thứ tự
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ShippingMethodName)
+                </th>               
+                <th>
+                    @Html.DisplayNameFor(model => model.ContactName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sex)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Phone)
+                </th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @i
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ShippingMethodName)
+                    </td>
+                   
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ContactName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sex)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phone)
+                    </td>
+               
+                    <td>
+                        @Html.ActionLink("Sửa", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-flat" }) |
+                        @Html.ActionLink("Xem", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-flat" }) |
+                        <button class="btn btn-danger btn-flat" data-toggle="modal" data-target="#myModal-@i">
+                            Xóa
+                        </button>
+
+                        <div class="modal fade" id="myModal-@i" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel">Bạn có chắc?</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        Bạn muốn xóa phương thức giao hàng này?
+                                    </div>
+                                    <div class="modal-footer">
+
+                                        @using (Html.BeginForm("Delete", "shippingmethod", new { area = "shipping", id = @item.Id }, FormMethod.Post))
+                                        {
+                                            @Html.AntiForgeryToken()
+
+                                            <div class="form-actions no-color">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Không</button> |
+                                                <input type="submit" value="Có" class="btn btn-danger btn-flat" />
+                                            </div>
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                                        i++;
+            }
+        </tbody>
+    </table>
+</div>

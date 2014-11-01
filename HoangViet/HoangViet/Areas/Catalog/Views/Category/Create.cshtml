@@ -1,0 +1,26 @@
+﻿@model HoangViet.Models.Catalog.Category
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="box-header">
+    <h3 class="box-title">
+        Tạo mới danh mục hàng hóa
+    </h3>
+</div>
+
+   @using (Html.BeginForm("create", "category", new { area = "catalog" }, FormMethod.Post, new { role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true)
+
+  @Html.Partial("_CreateOrEdit", Model)
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

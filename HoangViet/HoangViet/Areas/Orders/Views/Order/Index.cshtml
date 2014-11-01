@@ -1,0 +1,113 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IPagedList<HoangViet.Models.Orders.Order>
+
+@{
+    ViewBag.Title = "Index";
+    var i = 1;
+}
+
+<div class="box-header">
+    <h3 class="box-title">
+        Danh sách đơn đặt hàng
+    </h3>
+
+</div>
+<div class="box-body table-responsive no-padding">
+    <table class="table table-hover">
+        <tbody>
+            <tr>
+                <th>
+                    Đơn Id
+                </th>
+                <th>
+                   Tình trạng đơn hàng
+                </th>
+                <th>
+                   Tình trạng thanh toán
+                </th>
+                <th>
+                    Tình trạng giao hàng
+                </th>
+                <th>
+                   Khách hàng
+                </th>
+                <th>
+                   Ngày đặt
+                </th>
+                <th>
+                    Tổng giá trị
+                </th>
+                
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>                   
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OrderStatus)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PaymentStatus)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ShippingStatus)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Customer.Email)
+                    </td>
+                    <td>
+                        @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0}", item.OrderDate)
+                     
+                    </td>
+                    <td>
+                        @string.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c0}", item.OrderTotal)                  
+                    </td>
+                    <td>
+                        @Html.ActionLink("Cập nhật", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-flat" }) |
+                        @*@Html.ActionLink("Xem", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-flat" }) |*@
+                        <button class="btn btn-danger btn-flat" data-toggle="modal" data-target="#myModal-@i">
+                            Xóa
+                        </button>
+
+                        <div class="modal fade" id="myModal-@i" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel">Bạn có chắc?</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        Bạn muốn xóa đơn đặt hàng này?
+                                    </div>
+                                    <div class="modal-footer">
+
+                                        @using (Html.BeginForm("Delete", "order", new { area = "orders", id = @item.Id }, FormMethod.Post))
+                                        {
+                                            @Html.AntiForgeryToken()
+
+                                            <div class="form-actions no-color">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Không</button> |
+                                                <input type="submit" value="Có" class="btn btn-danger btn-flat" />
+                                            </div>
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                                        i++;
+            }
+        </tbody>
+    </table>
+    <div class="text-center">@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))</div>
+  
+   
+</div>
+

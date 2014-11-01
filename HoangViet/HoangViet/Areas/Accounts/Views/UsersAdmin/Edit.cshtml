@@ -1,0 +1,129 @@
+﻿@model HoangViet.ViewModels.Accounts.EditUserViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+@section head{
+    <link href="~/Areas/Admin/css/datepicker/datepicker.css" rel="stylesheet" />
+}
+<div class="box-header">
+    <h3 class="box-title">
+        Cập nhật tài khoản @if (ViewBag.OrderId != null)
+        {
+            <small>(@Html.ActionLink("Quay lại đơn đặt hàng", "edit", new { area = "orders", controller = "order", id = ViewBag.OrderId }, new { style = "color:#72afd2" }))</small>
+        }
+    </h3>
+</div>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    <div id="hoangviet-errors" class="alert alert-danger alert-dismissable hidden">
+        <i class="fa fa-ban"></i>
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <b>Đã có lỗi trong quá trình xử lý!</b> @Html.ValidationSummary(true)
+    </div>
+    <div class="box-body">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email)
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name)
+            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", rows = "3" })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Sex)
+            @Html.EnumDropDownListFor(model => model.Sex, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DateOfBirth)
+            <div class="input-group col-md-2">
+                <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                </div>
+                @Html.TextBoxFor(model => model.DateOfBirth, new { @class = "text-box single-line form-control", data_date_format = "dd/mm/yyyy" })
+                @* @Html.TextBox("DateOfBirth",Model.DateOfBirth, new { @class = "text-box single-line form-control", data_date_format = "dd/mm/yyyy" })*@
+            </div>
+            @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CompanyName)
+            @Html.TextBoxFor(model => model.CompanyName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.FaxNumber)
+            @Html.TextBoxFor(model => model.FaxNumber, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.FaxNumber, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.TaxCode)
+            @Html.TextBoxFor(model => model.TaxCode, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TaxCode, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PhoneNumber)
+            @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Website)
+            @Html.TextBoxFor(model => model.Website, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Website, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group">
+            <div class="checkbox">
+                <label class="">
+                    @Html.CheckBoxFor(model => model.Disabled, new { style = "position: absolute; opacity: 0;" })
+                    Khóa tài khoản
+                </label>
+            </div>
+            @Html.ValidationMessageFor(model => model.Disabled, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.RolesList)
+            <div class="form-control">
+                @foreach (var item in Model.RolesList)
+                {
+                    <label class="">
+                        <input type="checkbox" name="SelectedRoles" value="@item.Value" checked="@item.Selected" class="checkbox-inline" />
+
+                        @Html.Label(item.Value, new { @class = "control-label" })
+                    </label>
+
+                }
+            </div>
+
+
+            @Html.ValidationMessageFor(model => model.RolesList, "", new { @class = "text-danger" })
+
+        </div>
+    </div><!-- /.box-body -->
+
+    <div class="box-footer">
+        <input type="submit" value="Lưu" class="btn btn-primary" /> |
+        @Html.ActionLink("Quay lại danh sách", "Index", new { controller = "usersadmin", area = "accounts" }, new { @class = "btn btn-primary" })
+    </div>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Areas/Admin/js/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#DateOfBirth').datepicker();
+            if (!isValid)
+                $('#hoangviet-errors').removeClass('hidden');
+        });
+    </script>
+}

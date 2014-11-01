@@ -1,0 +1,69 @@
+﻿@model IEnumerable<HoangViet.Models.Orders.OrderDetail>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Order.CustomerId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnitPriceInclTax)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnitPriceExclTax)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PriceInclTax)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PriceExclTax)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Order.CustomerId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UnitPriceInclTax)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UnitPriceExclTax)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PriceInclTax)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PriceExclTax)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

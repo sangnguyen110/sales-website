@@ -1,0 +1,39 @@
+﻿@model HoangViet.Areas.Shipping.ViewModels.ShipmentAdminViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+@section head{
+    <link href="~/Areas/Admin/css/datepicker/datepicker.css" rel="stylesheet" />
+}
+<div class="box-header">
+    <h3 class="box-title">
+        Tạo mới phiếu giao hàng
+        @if (Model.OrderId.HasValue)
+        {
+            <small>(@Html.ActionLink("Quay lại đơn đặt hàng", "edit", new { area = "orders", controller = "order", id = Model.OrderId }, new { style = "color:#72afd2" }))</small>
+        }
+    </h3>
+</div>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.OrderId)
+    @Html.Partial("_CreateOrEdit", Model)
+
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Areas/Admin/js/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#DeliveryDate, #ShippedDate').datepicker();
+
+        });
+    </script>
+}

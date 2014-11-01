@@ -1,0 +1,32 @@
+﻿@model HoangViet.ViewModels.Accounts.RegisterViewModel
+@{
+    ViewBag.Title = "Create";
+}
+@section head{
+    <link href="~/Areas/Admin/css/datepicker/datepicker.css" rel="stylesheet" />
+}
+<div class="box-header">
+    <h3 class="box-title">
+        Tạo mới tài khoản
+    </h3>
+</div>
+
+@using (Html.BeginForm("Create", "UsersAdmin", new { area = "accounts" }, FormMethod.Post, new { role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.Partial("_CreateOrEdit", Model)
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script src="~/Areas/Admin/js/plugins/datepicker/bootstrap-datepicker.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#DateOfBirth').datepicker();
+        if (!isValid)
+            $('#hoangviet-errors').removeClass('hidden');
+    });
+</script>
+
+}

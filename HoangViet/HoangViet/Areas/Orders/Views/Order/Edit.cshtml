@@ -1,0 +1,437 @@
+﻿@model HoangViet.Models.Orders.Order
+
+@{
+    ViewBag.Title = "Edit";
+    int i = 1;
+}
+@section head{
+    <link href="~/Areas/Admin/css/datetimepicker/bootstrap-datetimepicker.css" rel="stylesheet" />
+}
+<div class="box-header">
+    <h3 class="box-title">Cập nhật thông tin đơn đặt hàng
+    </h3>
+</div>
+@*@using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Id)*@
+<div class="box-body">
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#order-info" data-toggle="tab">Thông tin đơn đặt hàng</a></li>
+            <li><a href="#billing-info" data-toggle="tab">Địa chỉ hóa đơn</a></li>
+            <li><a href="#shipping-info" data-toggle="tab">Thông tin giao hàng</a></li>
+            <li><a href="#order-detail-info" data-toggle="tab">Chi tiết đơn đặt hàng</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane active" id="order-info">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.OrderStatus)
+                    </dt>
+
+                    <dd>
+                        <strong>@Html.DisplayFor(model => model.OrderStatus) &nbsp;</strong>
+                        @using (Html.BeginForm("updateorderstatus", "order", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(model => model.Id)
+                            @Html.EnumDropDownListFor(model => model.OrderStatus)
+                            <input type="submit" value="Thay đổi trạng thái đơn hàng" class="btn btn-primary" />
+                        }
+
+                    </dd>
+                    <dt>Mã đơn đặt hàng
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Id)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.OrderDate)
+                    </dt>
+
+                    <dd>
+                        @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0}", Model.OrderDate)
+                    </dd>
+                    <hr />
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Customer)
+                    </dt>
+
+                    <dd>
+                        @Html.ActionLink(Model.Customer.Email, "edit", new { area = "accounts", controller = "usersadmin", id = Model.CustomerId, orderId = Model.Id }, new { })
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.OrderSubtotalExclTax)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.OrderSubtotalExclTax)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.TaxRates)
+                    </dt>
+                    <dd>
+                        <div class="row">
+                            <div class="col-md-1">
+                                <strong>@Html.DisplayFor(model => model.TaxRates) &nbsp;</strong>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="panel box box-success">
+                                    <div class="box-header">
+                                        <h5 class="text-center">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="collapsed" style="color: #444;">Thay đổi thuế suất
+                                            </a>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse" style="height: 0px;">
+                                        <div class="box-body">
+                                            @using (Html.BeginForm("updatetaxrates", "order", FormMethod.Post))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                @Html.HiddenFor(model => model.Id)
+                                                @Html.TextBoxFor(model => model.TaxRates)
+                                                <input type="submit" value="Lưu" class="btn btn-primary" />
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.OrderSubtotalInclTax)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.OrderSubtotalInclTax)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.OrderShippingExclTax)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.OrderShippingExclTax)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.OrderShippingInclTax)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.OrderShippingInclTax)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.OrderTotal)
+                    </dt>
+
+                    <dd>
+                        <strong>@string.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c0}", Model.OrderTotal)</strong>
+
+                    </dd>
+
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.PaymentMethod)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.PaymentMethod)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.PaymentStatus)
+                            </dt>
+                            <dd>
+                                <strong>@Html.DisplayFor(model => model.PaymentStatus) &nbsp;</strong>
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.PaidDate)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.PaidDate)
+@*                                @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0}", Model.PaidDate)*@
+                            </dd>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="panel box box-success">
+                                <div class="box-header">
+                                    <h5 class="text-center">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed" style="color: #444;">
+                                            Cập nhật thông tin thanh toán
+                                        </a>
+                                    </h5>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse" style="height: 0px;">
+                                    <div class="box-body">
+                                        @using (Html.BeginForm("updatepaymentinfo", "order", FormMethod.Post))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            @Html.HiddenFor(model => model.Id)    
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.PaymentMethod)
+                                                @Html.EnumDropDownListFor(model => model.PaymentMethod, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.PaymentMethod, "", new { @class = "text-danger" })
+                                            </div> 
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.PaymentStatus)
+                                                @Html.EnumDropDownListFor(model => model.PaymentStatus, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.PaymentStatus, "", new { @class = "text-danger" })
+                                            </div> 
+                                           <div class="form-group">
+                                                @Html.LabelFor(model => model.PaidDate)
+                                                @Html.TextBoxFor(model => model.PaidDate, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.PaidDate, "", new { @class = "text-danger" })
+                                            </div>                   
+                                            <input type="submit" value="Lưu" class="btn btn-primary" />
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </dl>
+
+            </div>
+            <div class="tab-pane" id="billing-info">
+                <dl class="dl-horizontal">
+                    <dt>@Html.DisplayNameFor(model => model.BillingAddress.FullName)</dt>
+                    <dd>@Html.DisplayFor(model => model.BillingAddress.FullName)</dd>
+                    <dt>@Html.DisplayNameFor(model => model.BillingAddress.Email)</dt>
+                    <dd>@Html.DisplayFor(model => model.BillingAddress.Email)</dd>
+                    <dt>@Html.DisplayNameFor(model => model.BillingAddress.PhoneNumber)</dt>
+                    <dd>@Html.DisplayFor(model => model.BillingAddress.PhoneNumber)</dd>
+                    <dt>@Html.DisplayNameFor(model => model.BillingAddress.FaxNumber)</dt>
+                    <dd>@Html.DisplayFor(model => model.BillingAddress.FaxNumber)</dd>
+                    <dt>@Html.DisplayNameFor(model => model.BillingAddress.Company)</dt>
+                    <dd>@Html.DisplayFor(model => model.BillingAddress.Company)</dd>
+                    <dt>@Html.DisplayNameFor(model => model.BillingAddress.Address1)</dt>
+                    <dd>@Html.DisplayFor(model => model.BillingAddress.Address1)</dd>
+                    <dt>@Html.DisplayNameFor(model => model.BillingAddress.City.CityName)</dt>
+                    <dd>@Html.DisplayFor(model => model.BillingAddress.City.CityName)</dd>
+                    <dt>@Html.DisplayNameFor(model => model.BillingAddress.District.DistrictName)</dt>
+                    <dd>@Html.DisplayFor(model => model.BillingAddress.District.DistrictName)</dd>
+                </dl>
+                @Html.ActionLink("Cập nhật địa chỉ", "edit", new { area = "common", controller = "addressesadmin", id = Model.BillingAddressId, orderId = Model.Id }, new { @class = "btn btn-primary" })
+            </div>
+            <div class="tab-pane" id="shipping-info">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ShippingStatus)
+                    </dt>
+
+                    <dd>
+                        <strong>@Html.DisplayFor(model => model.ShippingStatus)</strong>
+                    </dd>
+                </dl>
+
+
+
+                @if (Model.ShippingStatus != HoangViet.Models.Shipping.ShippingStatus.ShippingNotRequired)
+                {
+                    <hr />
+                    <dl class="dl-horizontal">
+                        <dt>@Html.DisplayNameFor(model => model.ShippingAddress.FullName)</dt>
+                        <dd>@Html.DisplayFor(model => model.ShippingAddress.FullName)</dd>
+                        <dt>@Html.DisplayNameFor(model => model.ShippingAddress.Email)</dt>
+                        <dd>@Html.DisplayFor(model => model.ShippingAddress.Email)</dd>
+                        <dt>@Html.DisplayNameFor(model => model.ShippingAddress.PhoneNumber)</dt>
+                        <dd>@Html.DisplayFor(model => model.ShippingAddress.PhoneNumber)</dd>
+                        <dt>@Html.DisplayNameFor(model => model.ShippingAddress.FaxNumber)</dt>
+                        <dd>@Html.DisplayFor(model => model.ShippingAddress.FaxNumber)</dd>
+                        <dt>@Html.DisplayNameFor(model => model.ShippingAddress.Company)</dt>
+                        <dd>@Html.DisplayFor(model => model.ShippingAddress.Company)</dd>
+                        <dt>@Html.DisplayNameFor(model => model.ShippingAddress.Address1)</dt>
+                        <dd>@Html.DisplayFor(model => model.ShippingAddress.Address1)</dd>
+                        <dt>@Html.DisplayNameFor(model => model.ShippingAddress.City.CityName)</dt>
+                        <dd>@Html.DisplayFor(model => model.ShippingAddress.City.CityName)</dd>
+                        <dt>@Html.DisplayNameFor(model => model.ShippingAddress.District.DistrictName)</dt>
+                        <dd>@Html.DisplayFor(model => model.ShippingAddress.District.DistrictName)</dd>
+                    </dl>
+                    @Html.ActionLink("Cập nhật địa chỉ", "edit", new { area = "common", controller = "addressesadmin", id = Model.ShippingAddressId, orderId = Model.Id }, new { @class = "btn btn-primary" })
+                    <hr />
+                    <h5 class="text-center text-aqua">Danh sách phiếu giao hàng của đơn đặt hàng này!</h5>
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th>Mã giao hàng
+                                </th>
+                                <th>Tracking number
+                                </th>
+                                <th>Tổng khối lượng
+                                </th>
+                                <th>Ngày giao hàng
+                                </th>
+                                <th>Ngày hàng tới
+                                </th>
+
+                                <th></th>
+                            </tr>
+                            @foreach (var item in ViewBag.ShipmentViewModels as List<HoangViet.Areas.Shipping.ViewModels.ShipmentAdminViewModel>)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.Id
+                                    </td>
+                                    <td>
+                                        @item.TrackingNumber
+                                    </td>
+                                    <td>
+                                        @item.TotalWeight
+                                    </td>
+                                    <td>
+                                        @item.ShippedDate
+
+                                    </td>
+                                    <td>
+                                        @item.DeliveryDate
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Sửa", "edit", new { area = "shipping", controller = "shipmentsadmin", id = item.Id }, new { @class = "btn btn-primary btn-flat" }) |
+                                        <button class="btn btn-danger btn-flat" data-toggle="modal" data-target="#myModal-@i">
+                                            Xóa
+                                        </button>
+
+                                        <div class="modal fade" id="myModal-@i" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                        <h4 class="modal-title" id="myModalLabel">Bạn có chắc?</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Bạn muốn xóa thông tin giao hàng này?
+                                                    </div>
+                                                    <div class="modal-footer">
+
+                                                        @using (Html.BeginForm("Delete", "shipmentsadmin", new { area = "shipping", id = @item.Id }, FormMethod.Post))
+                                                        {
+                                                            @Html.AntiForgeryToken()
+
+                                                            <div class="form-actions no-color">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Không</button>
+                                                                |
+                                                                <input type="submit" value="Có" class="btn btn-danger btn-flat" />
+                                                            </div>
+                                                        }
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                                        i++;
+                            }
+                        </tbody>
+                    </table>
+                            if (Model.EnabledShipmentCreating())
+                            {
+                    <hr />
+                    @Html.ActionLink("Tạo phiếu giao hàng", "create", new { area = "shipping", controller = "shipmentsadmin", orderId = Model.Id }, new { @class = "btn btn-primary" })
+                            }
+                }
+            </div>
+            <div class="tab-pane" id="order-detail-info">
+                <h5 class="text-center text-aqua">Danh sách sản phẩm của đơn đặt hàng này!</h5>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>Tên sản phẩm
+                            </th>
+                            <th>Giá đơn vị
+                            </th>
+                            <th>Số lượng
+                            </th>
+                            <th>Tổng giá
+                            </th>
+
+                            <th></th>
+                        </tr>
+                        @foreach (var item in Model.OrderDetails)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Product.ProductName
+                                </td>
+                                <td>
+                                    @item.UnitPriceExclTax
+                                </td>
+                                <td>
+                                    @item.Quantity
+
+                                </td>
+                                <td>
+                                    @item.PriceExclTax
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Sửa", "edit", new { area = "orders", controller = "orderdetail", id = item.Id }, new { @class = "btn btn-primary btn-flat" }) |
+                                    <button class="btn btn-danger btn-flat" data-toggle="modal" data-target="#myModal-@i">
+                                        Xóa
+                                    </button>
+
+                                    <div class="modal fade" id="myModal-@i" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title" id="myModalLabel">Bạn có chắc?</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Bạn muốn xóa chi tiết đơn đặt hàng này?
+                                                </div>
+                                                <div class="modal-footer">
+
+                                                    @using (Html.BeginForm("delete", "orderdetail", new { area = "orders", id = @item.Id }, FormMethod.Post))
+                                                    {
+                                                        @Html.AntiForgeryToken()
+
+                                                        <div class="form-actions no-color">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Không</button>
+                                                            |
+                                                            <input type="submit" value="Có" class="btn btn-danger btn-flat" />
+                                                        </div>
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    i++;
+                        }
+                    </tbody>
+                </table>
+                <hr />
+                @Html.ActionLink("Thêm sản phẩm", "indexfor", new { controller = "product", area = "catalog", entityid = Model.Id, frompage = HoangViet.Areas.Admin.ViewModels.FromPageEnum.OrderEdit }, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="box-footer">
+    @Html.ActionLink("Quay lại danh sách", "Index", new { controller = "order", area = "orders" }, new { @class = "btn btn-primary" })
+</div>
+
+
+@*}*@
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script src="~/Areas/Admin/js/plugins/datetimepicker/moment.js"></script>
+    <script src="~/Areas/Admin/js/plugins/datetimepicker/bootstrap-datetimepicker.js"></script>
+    <script src="~/Areas/Admin/js/plugins/datetimepicker/locales/bootstrap-datetimepicker.vn.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#PaidDate').datetimepicker({
+                language: 'vi'
+            });
+
+        });
+    </script>
+}

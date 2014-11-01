@@ -1,0 +1,43 @@
+﻿@model HoangViet.Models.Shipping.ShippingMethod
+<div class="box-body">
+    <div class="form-group">
+        @Html.LabelFor(model => model.ShippingMethodName)
+        @Html.TextBoxFor(model => model.ShippingMethodName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.ShippingMethodName, "", new { @class = "text-danger" })
+
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description)
+
+        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = "3" })
+        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ContactName)
+
+        @Html.TextBoxFor(model => model.ContactName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.ContactName, "", new { @class = "text-danger" })
+
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Sex)
+
+        @Html.EnumDropDownListFor(model => model.Sex, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
+
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Phone)
+
+        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+
+    </div>
+
+</div><!-- /.box-body -->
+
+<div class="box-footer">
+    <input type="submit" value="Save" class="btn btn-primary" /> |
+    @Html.ActionLink("Quay lại danh sách", "Index", new { controller = "shippingmethod", area = "shipping" }, new { @class = "btn btn-primary" })
+</div>

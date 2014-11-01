@@ -1,0 +1,186 @@
+﻿@using HoangViet.UI;
+@{
+   
+    HoangViet.Areas.Admin.ViewModels.LayoutAdminViewModel layoutViewModel = ViewBag.LayoutModel;
+    
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>@ViewBag.Title | Dashboard</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    @Styles.Render("~/Content/cssadmin")
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("head",false)
+    @Html.Partial("~/Views/Shared/_html5shiv.cshtml")
+</head>
+<body class="skin-blue">
+    <!-- header logo: style can be found in header.less -->
+    <header class="header">
+        <a href="@Url.Action("index", "home", new { area = "" })" class="logo">
+            <!-- Add the class icon to your logo image or logo icon to add the margining -->
+            Hoang Viet Group
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <div class="navbar-right">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown user user-menu">
+                      @Html.Partial("~/Areas/Admin/Views/Shared/_LoginPartial.cshtml")
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="wrapper row-offcanvas row-offcanvas-left">
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="left-side sidebar-offcanvas">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel -->
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        <img src="~/Areas/Admin/img/avatar3.png" class="img-circle" alt="User Image" />
+                    </div>
+                    <div class="pull-left info">
+                        <p>Hello, @layoutViewModel.UserName</p>
+                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                    </div>
+                </div>
+                <!-- search form -->
+                <form action="#" method="get" class="sidebar-form">
+                    <div class="input-group">
+                        <input type="text" name="q" class="form-control" placeholder="Search..." />
+                        <span class="input-group-btn">
+                            <button type='submit' name='seach' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </form>
+                <!-- /.search form -->
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu">
+                    <li class="treeview @Html.ActivePage("catalog")">
+                        <a href="#">
+                            <i class="fa fa-bar-chart-o"></i>
+                            <span>Quản lý hàng hóa</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="@Html.ActivePage("catalog", "category")">
+                                <a href="@Url.Action("index", "category", new { area = "Catalog" })">
+                                    <i class="fa fa-angle-double-right"></i> Danh mục hàng hóa
+                                </a>
+                            </li>
+                            <li class="@Html.ActivePage("catalog", "product")">
+                                <a href="@Url.Action("index", "product", new { area = "Catalog" })">
+                                    <i class="fa fa-angle-double-right"></i> Hàng hóa
+                                </a>
+                            </li>
+                           
+                        </ul>
+                    </li>
+                    <li class="@Html.ActivePage("admin", "elfinder")">
+                        <a href="@Url.Action("index", "elfinder", new { area = "admin" })">
+                            <i class="fa fa-folder"></i> Quản lý file và hình ảnh
+                        </a>
+                    </li>
+                    <li class="treeview @Html.ActivePage("shipping")">
+                        <a href="#">
+                            <i class="fa fa-envelope"></i>
+                            <span>Quản lý giao hàng</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="@Html.ActivePage("shipping", "shippingmethod")">
+                                <a href="@Url.Action("index", "shippingmethod", new { area = "shipping" })">
+                                    <i class="fa fa-angle-double-right"></i> Phương thức giao hàng
+                                </a>
+                            </li>
+                            <li class="@Html.ActivePage("shipping", "shipmentsadmin")">
+                                <a href="@Url.Action("index", "shipmentsadmin", new { area = "shipping" })">
+                                    <i class="fa fa-angle-double-right"></i> Danh sách phiếu giao hàng
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="treeview @Html.ActivePage("orders")">
+                        <a href="#">
+                            <i class="fa fa-stack-exchange"></i>
+                            <span>Quản lý bán hàng</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="@Html.ActivePage("orders", "order")">
+                                <a href="@Url.Action("index", "order", new { area = "orders" })">
+                                    <i class="fa fa-angle-double-right"></i> Đơn đặt hàng
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="treeview @Html.ActivePage("accounts")">
+                        <a href="#">
+                            <i class="fa fa-users"></i>
+                            <span>Quản lý người dùng</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="@Html.ActivePage("accounts", "rolesadmin")">
+                                <a href="@Url.Action("index", "rolesadmin", new { area = "accounts" })">
+                                    <i class="fa fa-angle-double-right"></i> Danh sách role
+                                </a>
+                            </li>
+                            <li class="@Html.ActivePage("accounts", "usersadmin")">
+                                <a href="@Url.Action("index", "usersadmin", new { area = "accounts" })">
+                                    <i class="fa fa-angle-double-right"></i> Danh sách tài khoản
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                   
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+        <!-- Right side column. Contains the navbar and content of the page -->
+        <aside class="right-side">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    @layoutViewModel.Controller
+                    <small>@layoutViewModel.Action</small>
+                </h1>
+              
+            </section>
+            <!-- Main content -->
+            <section class="content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-primary">
+                            @RenderBody()
+                        </div>
+                    </div><!-- /.col -->
+                </div>
+              
+            </section><!-- /.content -->
+        </aside><!-- /.right-side -->
+    </div><!-- ./wrapper -->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/Scripts/bootstrapadmin")
+    <script type="text/javascript">
+        var isValid = @Html.Raw(Json.Encode(ViewData.ModelState.IsValid)) ;
+
+    </script>
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+﻿@model Microsoft.AspNet.Identity.EntityFramework.IdentityRole
+
+@{
+    ViewBag.Title = "Details";
+    var i = 1;
+}
+
+<div class="box-header">
+    <h3 class="box-title">
+        Thông tin về role!
+    </h3>
+</div>
+<div class="box-body">
+    <dl class="dl-horizontal">
+        <dt>Mã role</dt>
+        <dd>@Html.DisplayFor(model => model.Id)</dd>
+        <dt>Tên role</dt>
+        <dd>@Html.DisplayFor(model => model.Name)</dd>
+    </dl>
+    <h5 class="text-center text-aqua">Danh sách người dùng có role này!</h5>
+    <div id ="hoangviet-errors" class="alert alert-danger alert-dismissable hidden">
+        <i class="fa fa-ban"></i>
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <b>Đã có lỗi trong quá trình xử lý!</b> @Html.ValidationSummary()
+    </div>
+    @if (ViewBag.UserCount == 0)
+    {
+        <div class="alert alert-warning alert-dismissable">
+            <i class="fa fa-warning"></i>
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <b>Cảnh báo!</b> Chưa có người dùng với role này.
+        </div>
+    }
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th>
+                    Số thứ tự
+                </th>
+                <th>
+                    Tên người dùng
+                </th>
+                <th>
+                    Giới tính
+                </th>
+                <th>
+                    Địa chỉ email
+                </th>
+                <th>
+                    Số điện thoại
+                </th>
+
+                <th></th>
+            </tr>
+            @foreach (var item in (IEnumerable<HoangViet.Models.Accounts.HoangVietUser>)ViewBag.Users)
+            {
+                <tr>
+                    <td>
+                        @i
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Sex
+                    </td>
+                    <td>
+                        @item.Email
+                    </td>
+                    <td>
+                        @item.PhoneNumber
+                    </td>
+                    <td>
+                        @using (Html.BeginForm("remove", "rolesadmin", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("userId", item.Id)
+                            @Html.Hidden("roleName", Model.Name)
+                            <div class="form-actions no-color">
+                                <input type="submit" value="Remove" class="btn btn-danger" /> 
+                            </div>
+                        }
+                    </td>
+                </tr>
+                        i++;
+            }
+        </tbody>
+    </table>
+
+</div>
+
+<div class="box-footer">
+    @Html.ActionLink("Cập nhật", "Edit", new { controller = "rolesadmin", id = Model.Id, area = "accounts" }, new { @class = "btn btn-primary" }) |
+    @Html.ActionLink("Quay lại danh sách", "Index", new { controller = "rolesadmin", area = "accounts" }, new { @class = "btn btn-primary" })
+
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+         $(function() {
+            if (!isValid)
+                $('#hoangviet-errors').removeClass('hidden');
+        });
+    </script>
+}
+
+
+
+

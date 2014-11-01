@@ -1,0 +1,155 @@
+﻿@model HoangViet.Models.Catalog.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="box-header">
+    <h3 class="box-title">
+        Xem thông tin hàng hóa
+    </h3>
+</div>
+
+<div class="box-body">
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#product-info" data-toggle="tab">Thông tin sản phẩm</a></li>
+            <li><a href="#seo-info" data-toggle="tab">Thông tin SEO</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane active" id="product-info">
+                <dl>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ProductName)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ProductName)
+                    </dd>
+                    <dt>
+                        Danh mục hàng hóa
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Category.CategoryName)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ShortDescription)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ShortDescription)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FullDescription)
+                    </dt>
+
+                    <dd>
+                        @Html.Raw(Model.FullDescription)
+                      
+                    </dd>
+                    
+                    <dt>
+                        @Html.DisplayNameFor(model => model.AdditionalShippingCharge)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.AdditionalShippingCharge)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.StockQuantity)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.StockQuantity)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Price)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.DisplayOrder)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.DisplayOrder)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ShowOnHomePage)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.ShowOnHomePage)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.IsShipEnabled)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.IsShipEnabled)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.IsFreeShipping)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.IsFreeShipping)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Published)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Published)
+                    </dd>
+                </dl>
+
+            </div>
+            <div class="tab-pane" id="seo-info">
+                <dl>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.MetaTitle)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.MetaTitle)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.MetaKeywords)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.MetaKeywords)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.MetaDescription)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.MetaDescription)
+                    </dd>
+
+
+                </dl>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="box-footer">
+    @Html.ActionLink("Sửa", "Edit", new { controller = "product", id = Model.Id, area = "catalog" }, new { @class = "btn btn-primary" }) |
+    @Html.ActionLink("Quay lại danh sách", "Index", new { controller = "product", area = "catalog" }, new { @class = "btn btn-primary" })
+
+</div>

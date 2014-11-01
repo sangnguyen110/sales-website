@@ -1,0 +1,99 @@
+﻿@model HoangViet.Models.Orders.Order
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="box-header">
+    <h3 class="box-title">
+        Xem thông tin đơn đặt hàng
+    </h3>
+</div>
+<div class="box-body">
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#order-info" data-toggle="tab">Thông tin đơn đặt hàng</a></li>
+            <li><a href="#billing-info" data-toggle="tab">Thông tin hóa đơn</a></li>
+            <li><a href="#shipping-info" data-toggle="tab">Thông tin giao hàng</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane active" id="order-info">
+                <dl class="dl-horizontal">
+                    <dt>                      
+                        @Html.DisplayNameFor(model => model.OrderStatus)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.OrderStatus)
+                    </dd>
+                    <dt>
+                        Mã đơn đặt hàng
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Id)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Customer)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Customer.Email)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.OrderTotal)
+                    </dt>
+
+                    <dd>
+                        @string.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c0}", Model.OrderTotal)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.PaymentMethod)
+                    </dt>
+                    <dd>
+                        @Html.DisplayNameFor(model => model.PaymentMethod)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.PaymentStatus)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.PaymentStatus)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.OrderDate)
+                    </dt>
+
+                    <dd>
+                        @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0}", Model.OrderDate)
+                    </dd>
+
+
+                </dl>
+
+            </div>
+            <div class="tab-pane" id="billing-info">
+                <dl>
+                    
+
+
+                </dl>
+            </div>
+            <div class="shipping-info" id="billing-info">
+                <dl>
+                   
+
+                </dl>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="box-footer">
+      @Html.ActionLink("Quay lại danh sách", "Index", new { controller = "order", area = "orders" }, new { @class = "btn btn-primary" })
+</div>

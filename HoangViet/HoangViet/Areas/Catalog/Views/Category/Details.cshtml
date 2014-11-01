@@ -1,0 +1,58 @@
+﻿@model HoangViet.Models.Catalog.Category
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="box-header">
+    <h3 class="box-title">
+        Xem thông tin danh mục hàng hóa
+    </h3>
+</div>
+<div class="box-body">
+    <dl>
+        <dt>@Html.DisplayNameFor(model => model.CategoryName)</dt>
+        <dd>@Html.DisplayFor(model => model.CategoryName)</dd>
+        <dt>@Html.DisplayNameFor(model => model.MetaKeywords)</dt>
+        <dd>@Html.DisplayFor(model => model.MetaKeywords)</dd>
+        <dt>@Html.DisplayNameFor(model => model.MetaDescription)</dt>
+        <dd>@Html.DisplayFor(model => model.MetaDescription)</dd>
+        <dt>@Html.DisplayNameFor(model => model.MetaTitle)</dt>
+        <dd>@Html.DisplayFor(model => model.MetaTitle)</dd>
+        <dt>
+          Danh mục cha
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ParentCategory.CategoryName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Published)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Published)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ShowOnHomePage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShowOnHomePage)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DisplayOrder)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DisplayOrder)
+        </dd>
+    </dl>
+</div>
+
+<div class="box-footer">
+    @Html.ActionLink("Sửa", "Edit", new { controller = "category", id = Model.Id, area = "catalog" }, new { @class = "btn btn-primary" }) |
+    @Html.ActionLink("Quay lại danh sách", "Index", new { controller = "category", area = "catalog" }, new {  @class = "btn btn-primary" })
+   
+</div>
+

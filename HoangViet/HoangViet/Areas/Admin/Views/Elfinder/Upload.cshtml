@@ -1,0 +1,94 @@
+﻿@{
+    ViewBag.Title = "Elfinder";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutElFinder.cshtml";
+}
+
+@section head
+{
+    <link rel="stylesheet" type="text/css" media="screen" href="@Url.Content("~/Content/elfinder/css/smoothness-1.8.23/jquery-ui-1.8.23.custom.css")" />
+    <script type="text/javascript" src="@Url.Content("~/Content/elfinder/js/jquery-1.7.1.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/elfinder/js/jquery-ui-1.8.11.min.js")"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="@Url.Content("~/Content/elfinder/css/elfinder.min.css")" />
+    <script type="text/javascript" src="@Url.Content("~/Content/elfinder/js/elfinder.min.js")"></script>
+    <script type="text/javascript">
+
+        $(function () {
+            var myCommands = elFinder.prototype._options.commands;
+            var disabled = ['extract', 'archive', 'help', 'select'];
+            $.each(disabled, function (i, cmd) {
+                (idx = $.inArray(cmd, myCommands)) !== -1 && myCommands.splice(idx, 1);
+            });
+            var selectedFiles = new Array();
+            var options = {
+                url: '/connector',
+                commands: myCommands,
+                lang: 'en',
+                uiOptions: {
+                    toolbar: [
+		                ['back', 'forward'],
+                        ['reload'],
+                        ['home', 'up'],
+		                ['mkdir', 'mkfile', 'upload'],
+		                ['open', 'download'],
+		                ['info'],
+		                ['quicklook'],
+		                ['copy', 'cut', 'paste'],
+		                ['rm'],
+		                ['duplicate', 'rename', 'edit', 'resize'],
+		                ['view', 'sort']
+                    ]
+                },
+                getFileCallback: function (file) {
+                    window.opener.processFile(file);
+                    window.close();
+                },
+                resizable: false,
+                handlers: {
+                    select: function (event, elfinderInstance) {
+                        var items = event.data.selected;
+                        selectedFiles = new Array();
+                        $.each(items, function (index, value) {
+                            var item = $('#' + value);
+                            if (!item.hasClass('directory') && $.inArray(value,selectedFiles) < 0) {
+                                selectedFiles.push(value);
+                            }
+                        });
+                        if (selectedFiles.length > 0)
+                        {
+                            $('#elfinder-selectFile').show();
+                            return;
+                        }
+                    }
+                }
+
+            };
+
+
+            $('#elfinder').elfinder(options).elfinder('instance');
+
+            $('.elfinder-toolbar:first').append('<div class="ui-widget-content ui-corner-all elfinder-buttonset" id="elfinder-selectFile" style="display:none; float:right;">' +
+            '<div class="ui-state-default elfinder-button" title="Select" style="width: 100px;"></div>');
+            $('#elfinder-selectFile').click(function () {
+                if (selectedFiles != null)
+                    var postData = { targets: selectedFiles };
+                    $.ajax({
+                        type: "POST",
+                        url: "/admin/files/multiselectFile",
+                        data: postData,
+                        success: function (data) {
+                            window.opener.processFile(data);
+                            window.close();
+                        },
+                        dataType: "json",
+                        traditional: true
+                    });
+
+            });
+        });
+
+
+
+    </script>
+}
+<div id="elfinder"></div>
+

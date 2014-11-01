@@ -1,0 +1,62 @@
+﻿@model HoangViet.Models.Shipping.ShippingMethod
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="box-header">
+    <h3 class="box-title">
+        Xem thông tin phương thức giao hàng
+    </h3>
+</div>
+<div class="box-body">
+    <dl>
+        <dt>
+            @Html.DisplayNameFor(model => model.ShippingMethodName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShippingMethodName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+    </dl>
+</div>
+
+<div class="box-footer">
+    @Html.ActionLink("Sửa", "Edit", new { controller = "shippingmethod", id = Model.Id, area = "shipping" }, new { @class = "btn btn-primary" }) |
+    @Html.ActionLink("Quay lại danh sách", "Index", new { controller = "shippingmethod", area = "shipping" }, new { @class = "btn btn-primary" })
+
+</div>
+
+

@@ -1,0 +1,27 @@
+﻿@model HoangViet.Models.Shipping.ShippingMethod
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="box-header">
+    <h3 class="box-title">
+        Tạo mới phương thức giao hàng
+    </h3>
+</div>
+
+
+@using (Html.BeginForm("create", "shippingmethod", new { area = "shipping" }, FormMethod.Post, new { role = "form" })) 
+{
+    @Html.AntiForgeryToken()
+     @Html.ValidationSummary(true)
+
+  @Html.Partial("_CreateOrEdit", Model)
+
+  
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
